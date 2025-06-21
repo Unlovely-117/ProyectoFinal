@@ -77,6 +77,76 @@ g++ src/*.cpp -Iinclude -o minijuegos
 
 ---
 
+# 📘 Diagrama UML del Proyecto “Mini Juegos en C++”
+
+Este documento representa el diagrama de clases del proyecto utilizando texto estructurado al estilo UML, permitiendo comprender las relaciones y estructuras internas del sistema sin necesidad de imágenes.
+
+```
+┌────────────────────────────┐
+│         Jugador            │
+├────────────────────────────┤
+│ - nombre: string           │
+│ - puntaje: int             │
+├────────────────────────────┤
+│ +getNombre(): string       │
+│ +getPuntaje(): int         │
+│ +setPuntaje(int): void     │
+│ +aumentarPuntaje(int): void│
+└────────────────────────────┘
+
+             ▲
+             │
+     [asociación por puntero]
+             │
+
+┌──────────────────────────────────────────┐
+│                 Juego                    │  <<Clase abstracta>>
+├──────────────────────────────────────────┤
+│ - nombreJuego: string                    │
+│ - jugador: Jugador*                      │
+├──────────────────────────────────────────┤
+│ +iniciar(): void = 0                     │
+│ +getNombreJuego(): string                │
+│ +getJugador(): Jugador*                  │
+└──────────────────────────────────────────┘
+             ▲                    ▲
+     Hereda de            Hereda de
+             │                    │
+
+┌────────────────────────────┐    ┌────────────────────────────────┐
+│          Ahorcado          │    │         Concentrece            │
+├────────────────────────────┤    ├────────────────────────────────┤
+│ - palabraSecreta: string   │    │ - filas: int                   │
+│ - palabraActual: string    │    │ - columnas: int                │
+│ - letrasUsadas: vector<char>│   │ - tablero: vector<vector<string>>│
+│ - intentosRestantes: int   │    │ - descubiertas: vector<vector<bool>>│
+├────────────────────────────┤    ├────────────────────────────────┤
+│ +iniciar(): void           │    │ +iniciar(): void               │
+│ +otros métodos propios     │    │ +otros métodos propios         │
+└────────────────────────────┘    └────────────────────────────────┘
+
+
+┌──────────────────────────────────────────────┐
+│              ArchivoHistorial                │
+├──────────────────────────────────────────────┤
+│ - nombreArchivo: string                      │
+├──────────────────────────────────────────────┤
+│ +guardarHistorial(string): void              │
+│ +mostrarHistorial(): void                    │
+└──────────────────────────────────────────────┘
+```
+
+## 🔍 Relaciones clave
+
+* `Juego` es una clase **abstracta** con el método `iniciar()` puro.
+* `Ahorcado` y `Concentrece` **heredan** de `Juego` e implementan su propia lógica.
+* `Juego` **contiene un puntero a Jugador**, lo que permite asignar un jugador específico a cualquier juego.
+* `ArchivoHistorial` se encarga de **guardar y mostrar** los resultados del jugador usando archivos de texto.
+
+Este diseño permite agregar fácilmente nuevos juegos en el futuro, siempre que hereden de la clase `Juego` y definan su comportamiento en el método `iniciar()`.
+
+---
+
 ## 🧑‍💻 Autores
 
 * **Nombre:** David López Restrepo, Manuela Guerrero Llanos
