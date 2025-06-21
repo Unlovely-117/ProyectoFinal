@@ -18,8 +18,7 @@ Este proyecto es una aplicación de consola desarrollada en C++ que implementa v
 
 * C++ (estándar C++11 en adelante)
 * Programación Orientada a Objetos
-
-  * Herencia, clases abstractas, polimorfismo
+* Herencia, clases abstractas, polimorfismo
 * Archivos externos para cargar palabras (`palabras.txt`, `parejas.txt`)
 * Gestión de puntajes y partidas
 * Diseño modular (archivos `.h` y `.cpp` separados)
@@ -78,7 +77,7 @@ g++ src/*.cpp -Iinclude -o minijuegos
 
 ---
 
-## 🧑‍💻 Autor
+## 🧑‍💻 Autores
 
 * **Nombre:** David López Restrepo, Manuela Guerrero Llanos
 * **Proyecto académico**
