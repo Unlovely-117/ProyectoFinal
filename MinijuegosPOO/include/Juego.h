@@ -11,11 +11,10 @@ protected:
 
 public:
     Juego(const std::string& nombreJuego, Jugador* jugador);
-
-    virtual void iniciar() = 0; // Método puro, hace la clase abstracta
+    virtual void iniciar() = 0;
     std::string getNombreJuego() const;
     Jugador* getJugador() const;
-    virtual ~Juego() = default;
+    virtual ~Juego() {}
 };
 
-#endif // JUEGO_H
+#endif

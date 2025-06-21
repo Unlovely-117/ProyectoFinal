@@ -1,22 +1,42 @@
 #include "ArchivoHistorial.h"
+#include <fstream>
+#include <iostream>
+#include <ctime>
 
-// Constructor
-ArchivoHistorial::ArchivoHistorial(const std::string& nombreArchivo) {
-    // Inicialización del archivo
+ArchivoHistorial::ArchivoHistorial(const std::string& nombreArchivo)
+    : nombreArchivo(nombreArchivo) {}
+
+bool ArchivoHistorial::guardarHistorial(const std::string historial) const {
+    std::ofstream archivo(nombreArchivo.c_str(), std::ios::app);
+    if (!archivo.is_open()) {
+        std::cout << "No se pudo abrir el archivo para escribir el historial.\n";
+        return false;
+    }
+
+    time_t ahora = time(0);
+    char* fechaHora = ctime(&ahora);
+    if (fechaHora) {
+        for (int i = 0; fechaHora[i]; ++i) {
+            if (fechaHora[i] == '\n') fechaHora[i] = '\0';
+        }
+    }
+
+    archivo << "[" << fechaHora << "] " << historial << "\n";
+    archivo.close();
+    return true;
 }
 
-// Método para guardar historial
-void ArchivoHistorial::guardarHistorial(const std::string& datos) {
-    // Lógica para guardar datos en el archivo
-}
+void ArchivoHistorial::mostrarHistorial() const {
+    std::ifstream archivo(nombreArchivo.c_str());
+    if (!archivo.is_open()) {
+        std::cout << "No se pudo abrir el archivo para leer el historial.\n";
+        return;
+    }
 
-// Método para cargar historial
-std::string ArchivoHistorial::cargarHistorial() {
-    // Lógica para leer datos del archivo
-    return "";
-}
+    std::string linea;
+    while (std::getline(archivo, linea)) {
+        std::cout << linea << "\n";
+    }
 
-// Destructor
-ArchivoHistorial::~ArchivoHistorial() {
-    // Limpieza si es necesario
+    archivo.close();
 }

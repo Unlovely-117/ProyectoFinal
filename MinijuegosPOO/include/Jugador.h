@@ -10,11 +10,11 @@ private:
 
 public:
     Jugador(const std::string& nombre, int puntaje = 0);
-
     std::string getNombre() const;
     int getPuntaje() const;
     void setPuntaje(int nuevoPuntaje);
     void aumentarPuntaje(int cantidad);
+    void reiniciarPuntaje();
 };
 
-#endif // JUGADOR_H
+#endif

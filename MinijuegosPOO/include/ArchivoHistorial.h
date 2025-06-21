@@ -2,17 +2,15 @@
 #define ARCHIVO_HISTORIAL_H
 
 #include <string>
-#include <vector>
 
 class ArchivoHistorial {
-public:
-    ArchivoHistorial(const std::string& nombreArchivo);
-
-    bool guardarHistorial(const std::vector<std::string>& historial) const;
-    std::vector<std::string> cargarHistorial() const;
-
 private:
     std::string nombreArchivo;
+
+public:
+    ArchivoHistorial(const std::string& nombreArchivo);
+    bool guardarHistorial(const std::string historial) const;
+    void mostrarHistorial() const;
 };
 
-#endif // ARCHIVO_HISTORIAL_H
+#endif

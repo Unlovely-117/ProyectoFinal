@@ -1,24 +1,23 @@
 #ifndef AHORCADO_H
 #define AHORCADO_H
 
+#include "Juego.h"
+#include "Jugador.h"
 #include <string>
-#include <vector>
 
-class Ahorcado {
+class Ahorcado : public Juego {
 private:
     std::string palabraSecreta;
     std::string palabraActual;
-    std::vector<char> letrasUsadas;
+    char letrasUsadas[26];
+    int cantidadUsadas;
     int intentosRestantes;
 
 public:
-    Ahorcado(const std::string& palabra, int maxIntentos);
-    bool adivinarLetra(char letra);
+    Ahorcado(Jugador* jugador, const std::string& palabra, int maxIntentos = 6);
+    void iniciar();
     bool juegoTerminado() const;
     bool jugadorGano() const;
-    std::string obtenerPalabraActual() const;
-    int obtenerIntentosRestantes() const;
-    std::vector<char> obtenerLetrasUsadas() const;
 };
 
-#endif // AHORCADO_H
+#endif

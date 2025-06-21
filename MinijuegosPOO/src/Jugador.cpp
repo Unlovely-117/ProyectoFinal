@@ -1,13 +1,24 @@
 #include "Jugador.h"
 
-// Constructor
-Jugador::Jugador(/* parámetros */) {
-    // Inicialización de atributos
+Jugador::Jugador(const std::string& nombre, int puntaje)
+    : nombre(nombre), puntaje(puntaje) {}
+
+std::string Jugador::getNombre() const {
+    return nombre;
 }
 
-// Métodos de la clase Jugador
-void Jugador::metodoEjemplo() {
-    // Implementación del método
+int Jugador::getPuntaje() const {
+    return puntaje;
 }
 
-// Otros métodos según sea necesario
+void Jugador::setPuntaje(int nuevoPuntaje) {
+    puntaje = nuevoPuntaje;
+}
+
+void Jugador::aumentarPuntaje(int cantidad) {
+    puntaje += cantidad;
+}
+
+void Jugador::reiniciarPuntaje() {
+    puntaje = 0;
+}
