@@ -2,27 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "CMake: Configure",
+      "label": "Compilar MinijuegosPOO",
       "type": "shell",
-      "command": "cmake",
+      "command": "g++",
       "args": [
-        "-S", "${workspaceFolder}",
-        "-B", "${workspaceFolder}/build"
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "src/*.cpp",
+        "-Iinclude",
+        "-o",
+        "bin/minijuegos"
       ],
-      "group": "build"
-    },
-    {
-      "label": "Build <nombre proyecto>",
-      "type": "shell",
-      "command": "cmake",
-      "args": [
-        "--build", "${workspaceFolder}/build",
-        "--target", "MinijuegosPOO",
-      ],
-      "group": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "problemMatcher": ["$gcc"],
-      "dependsOn": "CMake: Configure"
-    },
-    /// uno por cada proyecto/carpeta
+      "detail": "Compilación completa de todos los archivos fuente del proyecto"
+    }
   ]
 }
