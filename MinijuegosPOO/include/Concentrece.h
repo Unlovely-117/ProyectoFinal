@@ -2,20 +2,23 @@
 #define CONCENTRECE_H
 
 #include "Juego.h"
-#include "Jugador.h"
 #include <string>
 
 class Concentrece : public Juego {
 private:
     int filas;
     int columnas;
-    std::string tablero[6][6];       // M√°ximo tablero 6x6
-    bool descubiertas[6][6];         // Indica qu√© cartas est√°n descubiertas
+    std::string tablero[6][6];      // m·ximo tablero 6x6
+    bool descubiertas[6][6];        // si la carta est· descubierta
+
+    void cargarCartas();
+    void mezclarCartas(std::string cartas[], int total);
+    void mostrarTablero() const;
+    void jugarTurno(int& parejasEncontradas);
 
 public:
-    Concentrece(Jugador* jugador, int filas = 4, int columnas = 4);  // Constructor
-    void iniciar() override;                                         // Inicia el juego
-    void mostrarTablero() const;                                     // Muestra el tablero actual
+    Concentrece(Jugador* jugador, int filas = 4, int columnas = 4);
+    void iniciar() override;
 };
 
-#endif // CONCENTRECE_H
+#endif

@@ -2,7 +2,8 @@
 #define JUEGO_H
 
 #include <string>
-#include "Jugador.h"
+
+class Jugador;
 
 class Juego {
 protected:
@@ -10,9 +11,9 @@ protected:
     Jugador* jugador;
 
 public:
-    Juego(const std::string& nombre, Jugador* jugador) : nombre(nombre), jugador(jugador) {}
+    Juego(const std::string& nombre, Jugador* jugador);
     virtual void iniciar() = 0;
-    virtual ~Juego() = default;
+    virtual ~Juego();
 };
 
 #endif

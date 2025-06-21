@@ -9,11 +9,11 @@ private:
     int puntaje;
 
 public:
-    Jugador(const std::string& nombre) : nombre(nombre), puntaje(0) {}
-    std::string getNombre() const { return nombre; }
-    int getPuntaje() const { return puntaje; }
-    void aumentarPuntaje(int puntos) { puntaje += puntos; }
-    void reiniciarPuntaje() { puntaje = 0; }
+    Jugador(const std::string& nombre);
+    std::string getNombre() const;
+    int getPuntaje() const;
+    void aumentarPuntaje(int puntos);
+    void reiniciarPuntaje();
 };
 
 #endif

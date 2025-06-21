@@ -13,10 +13,13 @@ private:
     int intentosRestantes;
 
     void dibujarAhorcado() const;
+    void seleccionarPalabra();
+    void jugarTurno();
 
 public:
     Ahorcado(Jugador* jugador, const std::string& palabra = "", int maxIntentos = 6);
     void iniciar() override;
+    virtual ~Ahorcado() {}
     bool juegoTerminado() const;
     bool jugadorGano() const;
 };

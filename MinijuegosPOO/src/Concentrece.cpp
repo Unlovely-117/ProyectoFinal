@@ -1,37 +1,18 @@
-#ifndef CONCENTRECE_H
-#define CONCENTRECE_H
-
-#include "Juego.h"
-#include "Jugador.h"
-#include <string>
-
-class Concentrece : public Juego {
-private:
-    int filas;
-    int columnas;
-    std::string tablero[6][6]; // máximo 6x6
-    bool descubiertas[6][6];
-
-public:
-    Concentrece(Jugador* jugador, int filas = 4, int columnas = 4);
-    void iniciar() override;
-    void mostrarTablero() const;
-};
-
-#endif
-
-// ===== Concentrece.cpp =====
 #include "Concentrece.h"
+#include "Jugador.h"
+#include "ArchivoHistorial.h"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
+#include <iomanip>
 
 Concentrece::Concentrece(Jugador* jugador, int filas, int columnas)
     : Juego("Concentrece", jugador), filas(filas), columnas(columnas) {
 
     int totalCartas = filas * columnas;
-    std::string cartas[36]; // hasta 18 parejas
+    std::string cartas[36];
     int total = 0;
 
     std::ifstream archivo("parejas.txt");
@@ -68,9 +49,7 @@ Concentrece::Concentrece(Jugador* jugador, int filas, int columnas)
 }
 
 void Concentrece::iniciar() {
-    std::cout << "\n--- CONCENTRECE ---\n";
-    std::cout << "Encuentra las parejas de cartas.\n";
-
+    std::cout << "\n--- CONCENTRECE ---\nEncuentra las parejas de cartas.\n";
     int parejasEncontradas = 0;
     int totalParejas = (filas * columnas) / 2;
 
@@ -86,7 +65,7 @@ void Concentrece::iniciar() {
             f2 < 0 || f2 >= filas || c2 < 0 || c2 >= columnas ||
             (f1 == f2 && c1 == c2) ||
             descubiertas[f1][c1] || descubiertas[f2][c2]) {
-            std::cout << "Movimiento inválido. Intenta nuevamente.\n";
+            std::cout << "Movimiento invalido. Intenta nuevamente.\n";
             continue;
         }
 
@@ -94,7 +73,7 @@ void Concentrece::iniciar() {
         std::cout << "Carta 2: " << tablero[f2][c2] << "\n";
 
         if (tablero[f1][c1] == tablero[f2][c2]) {
-            std::cout << "¡Pareja encontrada!\n";
+            std::cout << "!Pareja encontrada!\n";
             descubiertas[f1][c1] = true;
             descubiertas[f2][c2] = true;
             parejasEncontradas++;
@@ -104,13 +83,27 @@ void Concentrece::iniciar() {
         }
     }
 
-    std::cout << "\n¡Felicidades, " << jugador->getNombre() << "! Terminaste el juego con "
-              << jugador->getPuntaje() << " puntos.\n";
+    std::cout << "\n!Felicidades, " << jugador->getNombre() << "! Terminaste el juego con " << jugador->getPuntaje() << " puntos.\n";
+
+    time_t tiempoActual;
+    time(&tiempoActual);
+    tm* tiempoLocal = localtime(&tiempoActual);
+
+    std::stringstream ssFecha;
+    ssFecha << std::put_time(tiempoLocal, "%Y-%m-%d_%H:%M:%S");
+    std::string fecha = ssFecha.str();
+    std::string resultado = "G";
+    ArchivoHistorial historial("historial.txt");
+    historial.guardarHistorial(fecha, jugador->getNombre(), "MEM", resultado, jugador->getPuntaje());
 }
 
 void Concentrece::mostrarTablero() const {
-    std::cout << "\nTablero:\n";
+    std::cout << "\nTablero:\n   ";
+    for (int j = 0; j < columnas; ++j)
+        std::cout << j << " ";
+    std::cout << "\n";
     for (int i = 0; i < filas; ++i) {
+        std::cout << i << "  ";
         for (int j = 0; j < columnas; ++j) {
             if (descubiertas[i][j]) {
                 std::cout << tablero[i][j] << " ";

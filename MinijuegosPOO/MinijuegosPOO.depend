@@ -1,0 +1,64 @@
+# depslib dependency file v1.0
+1750518091 source:c:\users\dlope\documents\manuela.p\minijuegospoo\src\ahorcado.cpp
+	"Ahorcado.h"
+	"Jugador.h"
+	"ArchivoHistorial.h"
+	<iostream>
+	<fstream>
+	<ctime>
+	<cstdlib>
+	<cctype>
+	<iomanip>
+	<sstream>
+
+1750514297 c:\users\dlope\documents\manuela.p\minijuegospoo\include\ahorcado.h
+	"Juego.h"
+	<string>
+
+1750514297 c:\users\dlope\documents\manuela.p\minijuegospoo\include\juego.h
+	<string>
+
+1750514757 c:\users\dlope\documents\manuela.p\minijuegospoo\include\jugador.h
+	<string>
+
+1750518163 source:c:\users\dlope\documents\manuela.p\minijuegospoo\src\concentrece.cpp
+	"Concentrece.h"
+	"Jugador.h"
+	"ArchivoHistorial.h"
+	<iostream>
+	<fstream>
+	<cstdlib>
+	<ctime>
+	<sstream>
+	<iomanip>
+
+1750514297 c:\users\dlope\documents\manuela.p\minijuegospoo\include\concentrece.h
+	"Juego.h"
+	<string>
+
+1750514297 source:c:\users\dlope\documents\manuela.p\minijuegospoo\src\jugador.cpp
+	"Jugador.h"
+
+1750517845 source:c:\users\dlope\documents\manuela.p\minijuegospoo\main.cpp
+	<iostream>
+	<string>
+	"Jugador.h"
+	"Ahorcado.h"
+	"Concentrece.h"
+	"ArchivoHistorial.h"
+
+1750515673 c:\users\dlope\documents\manuela.p\minijuegospoo\include\archivohistorial.h
+	<string>
+
+1750518091 source:c:\users\dlope\documents\manuela.p\minijuegospoo\src\archivohistorial.cpp
+	"ArchivoHistorial.h"
+	<fstream>
+	<iostream>
+	<ctime>
+	<iomanip>
+	<sstream>
+
+1750514757 source:c:\users\dlope\documents\manuela.p\minijuegospoo\src\juego.cpp
+	"Juego.h"
+	"Jugador.h"
+
