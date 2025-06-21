@@ -6,15 +6,13 @@
 
 class Juego {
 protected:
-    std::string nombreJuego;
+    std::string nombre;
     Jugador* jugador;
 
 public:
-    Juego(const std::string& nombreJuego, Jugador* jugador);
+    Juego(const std::string& nombre, Jugador* jugador) : nombre(nombre), jugador(jugador) {}
     virtual void iniciar() = 0;
-    std::string getNombreJuego() const;
-    Jugador* getJugador() const;
-    virtual ~Juego() {}
+    virtual ~Juego() = default;
 };
 
 #endif

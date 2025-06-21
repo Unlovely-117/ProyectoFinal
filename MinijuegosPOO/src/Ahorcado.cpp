@@ -1,11 +1,11 @@
-#include "Ahorcado.h"
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include <ctime>
+#include <cstdlib>
+#include "Ahorcado.h"
 
 Ahorcado::Ahorcado(Jugador* jugador, const std::string& palabra, int maxIntentos)
-    : Juego("Ahorcado", jugador), palabraSecreta(palabra), intentosRestantes(maxIntentos), cantidadUsadas(0) {
+    : Juego("Ahorcado", jugador), palabraSecreta(palabra), palabraActual(""), cantidadUsadas(0), intentosRestantes(maxIntentos) {
     palabraActual = std::string(palabraSecreta.size(), '_');
 }
 
@@ -15,6 +15,20 @@ bool Ahorcado::juegoTerminado() const {
 
 bool Ahorcado::jugadorGano() const {
     return palabraActual == palabraSecreta;
+}
+
+void Ahorcado::dibujarAhorcado() const {
+    int estado = 6 - intentosRestantes;
+    const std::string partes[7] = {
+        " +---+\n |   |\n     |\n     |\n     |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n     |\n     |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n |   |\n     |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n/|\\  |\n     |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n/|\\  |\n/    |\n     |\n=======\n",
+        " +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\n=======\n"
+    };
+    std::cout << partes[estado];
 }
 
 void Ahorcado::iniciar() {
@@ -33,52 +47,41 @@ void Ahorcado::iniciar() {
         palabraActual = std::string(palabraSecreta.size(), '_');
     }
 
-    std::cout << "\n--- AHORCADO ---\nAdivina la palabra letra por letra.\n";
+    std::cout << "\n--- AHORCADO ---\n";
 
     while (!juegoTerminado()) {
-        std::cout << "\nPalabra: " << palabraActual << "\n";
-        std::cout << "Intentos restantes: " << intentosRestantes << "\n";
-        std::cout << "Letras usadas: ";
-        for (int i = 0; i < cantidadUsadas; ++i) {
-            std::cout << letrasUsadas[i] << " ";
-        }
+        dibujarAhorcado();
+        std::cout << "\nPalabra: " << palabraActual << "\nIntentos restantes: " << intentosRestantes << "\nLetras usadas: ";
+        for (int i = 0; i < cantidadUsadas; ++i) std::cout << letrasUsadas[i] << " ";
         std::cout << "\nIngresa una letra: ";
 
         char letra;
         std::cin >> letra;
 
         bool yaUsada = false;
-        for (int i = 0; i < cantidadUsadas; ++i) {
-            if (letrasUsadas[i] == letra) {
-                yaUsada = true;
-                break;
-            }
-        }
+        for (int i = 0; i < cantidadUsadas; ++i)
+            if (letrasUsadas[i] == letra) yaUsada = true;
         if (yaUsada) {
-            std::cout << "Ya usaste esa letra. Intenta con otra.\n";
+            std::cout << "Ya usaste esa letra.\n";
             continue;
         }
 
         letrasUsadas[cantidadUsadas++] = letra;
-
         bool acierto = false;
-        for (size_t i = 0; i < palabraSecreta.size(); ++i) {
+        for (size_t i = 0; i < palabraSecreta.size(); ++i)
             if (palabraSecreta[i] == letra) {
                 palabraActual[i] = letra;
                 acierto = true;
             }
-        }
 
         if (!acierto) {
             intentosRestantes--;
             std::cout << "Incorrecto.\n";
-        } else {
-            std::cout << "¡Correcto!\n";
-        }
+        } else std::cout << "¡Correcto!\n";
     }
 
     if (jugadorGano()) {
-        std::cout << "\n¡Felicidades, " << jugador->getNombre() << "! Adivinaste la palabra: " << palabraSecreta << "\n";
+        std::cout << "\n¡Ganaste, " << jugador->getNombre() << "!\n";
         jugador->aumentarPuntaje(10);
     } else {
         std::cout << "\nPerdiste. La palabra era: " << palabraSecreta << "\n";

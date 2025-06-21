@@ -2,7 +2,6 @@
 #define AHORCADO_H
 
 #include "Juego.h"
-#include "Jugador.h"
 #include <string>
 
 class Ahorcado : public Juego {
@@ -13,9 +12,11 @@ private:
     int cantidadUsadas;
     int intentosRestantes;
 
+    void dibujarAhorcado() const;
+
 public:
-    Ahorcado(Jugador* jugador, const std::string& palabra, int maxIntentos = 6);
-    void iniciar();
+    Ahorcado(Jugador* jugador, const std::string& palabra = "", int maxIntentos = 6);
+    void iniciar() override;
     bool juegoTerminado() const;
     bool jugadorGano() const;
 };

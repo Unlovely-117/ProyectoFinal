@@ -1,24 +1,20 @@
 #include "Jugador.h"
 
-Jugador::Jugador(const std::string& nombre, int puntaje)
-    : nombre(nombre), puntaje(puntaje) {}
+Jugador::Jugador(const std::string& nombre)
+    : nombre(nombre), puntaje(0) {}
 
-std::string Jugador::getNombre() const {
-    return nombre;
+void Jugador::aumentarPuntaje(int puntos) {
+    puntaje += puntos;
+}
+
+void Jugador::reiniciarPuntaje() {
+    puntaje = 0;
 }
 
 int Jugador::getPuntaje() const {
     return puntaje;
 }
 
-void Jugador::setPuntaje(int nuevoPuntaje) {
-    puntaje = nuevoPuntaje;
-}
-
-void Jugador::aumentarPuntaje(int cantidad) {
-    puntaje += cantidad;
-}
-
-void Jugador::reiniciarPuntaje() {
-    puntaje = 0;
+std::string Jugador::getNombre() const {
+    return nombre;
 }

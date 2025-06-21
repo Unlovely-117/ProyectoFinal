@@ -1,3 +1,26 @@
+#ifndef CONCENTRECE_H
+#define CONCENTRECE_H
+
+#include "Juego.h"
+#include "Jugador.h"
+#include <string>
+
+class Concentrece : public Juego {
+private:
+    int filas;
+    int columnas;
+    std::string tablero[6][6]; // máximo 6x6
+    bool descubiertas[6][6];
+
+public:
+    Concentrece(Jugador* jugador, int filas = 4, int columnas = 4);
+    void iniciar() override;
+    void mostrarTablero() const;
+};
+
+#endif
+
+// ===== Concentrece.cpp =====
 #include "Concentrece.h"
 #include <iostream>
 #include <fstream>
@@ -31,9 +54,7 @@ Concentrece::Concentrece(Jugador* jugador, int filas, int columnas)
     srand(time(0));
     for (int i = 0; i < total; ++i) {
         int j = rand() % total;
-        std::string temp = cartas[i];
-        cartas[i] = cartas[j];
-        cartas[j] = temp;
+        std::swap(cartas[i], cartas[j]);
     }
 
     int index = 0;
@@ -47,7 +68,7 @@ Concentrece::Concentrece(Jugador* jugador, int filas, int columnas)
 }
 
 void Concentrece::iniciar() {
-    std::cout << "\n--- CONCENTRECE ---" << std::endl;
+    std::cout << "\n--- CONCENTRECE ---\n";
     std::cout << "Encuentra las parejas de cartas.\n";
 
     int parejasEncontradas = 0;

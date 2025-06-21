@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Jugador.h"
 #include "Ahorcado.h"
 #include "Concentrece.h"
@@ -21,7 +22,7 @@ void mostrarMenu() {
 int main() {
     std::string nombre;
     std::cout << "Ingresa tu nombre: ";
-    std::cin >> nombre;
+    std::getline(std::cin, nombre);
 
     Jugador jugador(nombre);
     ArchivoHistorial historial("historial.txt");
@@ -30,18 +31,21 @@ int main() {
     while (opcion != 6) {
         mostrarMenu();
         std::cin >> opcion;
+        std::cin.ignore(); // para limpiar el buffer
 
         switch (opcion) {
             case 1: {
-                Ahorcado ahorcado(&jugador, "palabra");
+                Ahorcado ahorcado(&jugador, "default"); // "default" será reemplazada por palabra aleatoria del archivo
                 ahorcado.iniciar();
-                historial.guardarHistorial(jugador.getNombre() + " jugó Ahorcado y obtuvo " + std::to_string(jugador.getPuntaje()) + " puntos");
+                historial.guardarHistorial(jugador.getNombre() + " jugó Ahorcado y obtuvo " +
+                                           std::to_string(jugador.getPuntaje()) + " puntos.");
                 break;
             }
             case 2: {
-                Concentrece concentrece(&jugador);
+                Concentrece concentrece(&jugador, 4, 4); // tablero 4x4
                 concentrece.iniciar();
-                historial.guardarHistorial(jugador.getNombre() + " jugó Concentrece y obtuvo " + std::to_string(jugador.getPuntaje()) + " puntos");
+                historial.guardarHistorial(jugador.getNombre() + " jugó Concentrece y obtuvo " +
+                                           std::to_string(jugador.getPuntaje()) + " puntos.");
                 break;
             }
             case 3:
@@ -49,7 +53,8 @@ int main() {
                 historial.mostrarHistorial();
                 break;
             case 4:
-                std::cout << "\nPuntaje actual de " << jugador.getNombre() << ": " << jugador.getPuntaje() << " puntos.\n";
+                std::cout << "\nPuntaje actual de " << jugador.getNombre() << ": "
+                          << jugador.getPuntaje() << " puntos.\n";
                 break;
             case 5:
                 jugador.reiniciarPuntaje();
@@ -60,7 +65,6 @@ int main() {
                 break;
             default:
                 std::cout << "Opción inválida. Intente de nuevo.\n";
-                break;
         }
     }
 
